@@ -1,0 +1,6 @@
+{
+  "name": "Nut Sort",
+  "description": "Addictive Color Nut & Bolt Sorting Puzzle game with unlimited procedural levels, mystery bolts, and smooth physics.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
