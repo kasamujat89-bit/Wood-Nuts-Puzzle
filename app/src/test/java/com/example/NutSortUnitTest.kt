@@ -149,4 +149,34 @@ class NutSortUnitTest {
         isDarkMode = !isDarkMode
         assertFalse(isDarkMode)
     }
+
+    @Test
+    fun nutColor_hasEnglishAndGujaratiTranslations() {
+        for (color in NutColor.entries) {
+            assertTrue("Color ${color.name} English name should not be blank", color.displayNameEn.isNotBlank())
+            assertTrue("Color ${color.name} Gujarati name should not be blank", color.displayNameGu.isNotBlank())
+            assertNotNull("Primary color should exist", color.primaryColor)
+        }
+    }
+
+    @Test
+    fun level1_structureIsCorrectForThreeMoveWin() {
+        val level1 = LevelGenerator.generateLevel(1)
+        assertEquals(1, level1.levelNumber)
+        assertEquals(3, level1.bolts.size)
+        assertEquals(2, level1.colorCount)
+        assertEquals(3, level1.parMoves)
+
+        // Bolt 0 and Bolt 1 each have 4 nuts, Bolt 2 is empty buffer
+        assertEquals(4, level1.bolts[0].nuts.size)
+        assertEquals(4, level1.bolts[1].nuts.size)
+        assertEquals(0, level1.bolts[2].nuts.size)
+
+        // Verify top nuts can be moved into empty buffer
+        val topNut0 = level1.bolts[0].topNut
+        val topNut1 = level1.bolts[1].topNut
+        assertNotNull(topNut0)
+        assertNotNull(topNut1)
+        assertTrue(level1.bolts[2].canAccept(topNut0!!))
+    }
 }

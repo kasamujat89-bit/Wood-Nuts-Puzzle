@@ -183,7 +183,7 @@ fun LevelSelectDialog(
                 Spacer(modifier = Modifier.height(14.dp))
 
                 // Grid of levels (Levels > maxLevelUnlocked are strictly LOCKED)
-                val displayCount = maxOf(maxLevelUnlocked + 8, 28).coerceAtMost(60)
+                val displayCount = maxOf(maxLevelUnlocked + 12, 32)
                 LazyVerticalGrid(
                     columns = GridCells.Fixed(4),
                     contentPadding = PaddingValues(4.dp),

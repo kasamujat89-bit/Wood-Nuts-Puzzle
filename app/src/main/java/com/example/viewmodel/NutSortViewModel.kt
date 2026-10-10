@@ -235,7 +235,33 @@ class NutSortViewModel(application: Application) : AndroidViewModel(application)
                     hintPair = null
                 )
             }
+            if (!hasAvailableMoves(currentBolts)) {
+                showToast(LanguageStrings.hintNotFound(_uiState.value.language))
+            }
         }
+    }
+
+    private fun hasAvailableMoves(bolts: List<Bolt>): Boolean {
+        val hasEmpty = bolts.any { it.isEmpty }
+        for (src in bolts) {
+            if (src.isEmpty || src.isCompleted) continue
+            val topNut = src.topNut ?: continue
+
+            if (hasEmpty) {
+                val isUniform = src.nuts.all { it.color == topNut.color && it.isVisible }
+                if (!isUniform || src.nuts.size < src.capacity) {
+                    return true
+                }
+            }
+
+            for (dest in bolts) {
+                if (dest.id == src.id || dest.isFull || dest.isCompleted) continue
+                if (!dest.isEmpty && dest.topColor == topNut.color) {
+                    return true
+                }
+            }
+        }
+        return false
     }
 
     private fun handleVictory(moves: Int, updatedBolts: List<Bolt>, completedIds: Set<Int>) {
